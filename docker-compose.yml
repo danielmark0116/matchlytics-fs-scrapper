@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    hostname: "oauth_universal_links_db"
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT}:5432"
+
+  server:
+    container_name: server
+    env_file:
+      - .env
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: "always"
+    depends_on:
+      - "db"
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
