@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  db:
+  db_matchlytics:
     image: postgres
     container_name: db_matchlytics
     restart: always
@@ -13,7 +13,7 @@ services:
     ports:
       - "${POSTGRES_PORT}:5432"
 
-  mongo:
+  mongo_matchlytics:
     image: mongo
     container_name: mongo_matchlytics
     restart: always
@@ -31,7 +31,7 @@ services:
       dockerfile: Dockerfile
     restart: "always"
     depends_on:
-      - "db"
-      - "mongo"
+      - "db_matchlytics"
+      - "mongo_matchlytics"
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
