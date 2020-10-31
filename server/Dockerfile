@@ -14,7 +14,7 @@ COPY . .
 
 RUN yarn build
 
-EXPOSE 7000
+EXPOSE 7009
 
 # RUN chmod +x ./await-postgres.sh
 

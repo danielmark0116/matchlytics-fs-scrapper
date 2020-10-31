@@ -8,3 +8,19 @@ services:
       - ./server:/app
       - ./server/node_modules:/app/node_modules
     command: ["yarn", "dev"]
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    logging:
+      driver: "none"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: grychtol.daniel@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: Admin!123
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "8080:80"
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    links:
+      - "db:pgsql-server"

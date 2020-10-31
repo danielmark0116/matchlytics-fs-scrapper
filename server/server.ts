@@ -11,7 +11,7 @@ import { initPassport, initGoogleOAuth } from "./src/utils/passport";
 import { connectToDb } from "./src/utils/db";
 
 const app = Express();
-const port = process.env.PORT || 7004;
+const port = process.env.SERVER_PORT;
 
 if (process.env.MODE === "dev") {
   app.use(morgan("tiny"));
