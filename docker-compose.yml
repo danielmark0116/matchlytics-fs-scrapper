@@ -3,7 +3,7 @@ version: "3"
 services:
   db:
     image: postgres
-    container_name: db
+    container_name: db_matchlytics
     restart: always
     hostname: "oauth_universal_links_db"
     volumes:
@@ -15,7 +15,7 @@ services:
 
   mongo:
     image: mongo
-    container_name: mongo
+    container_name: mongo_matchlytics
     restart: always
     env_file:
       - .env

@@ -3,12 +3,12 @@ import * as path from "path";
 import * as mongoose from "mongoose";
 import * as chalk from "chalk";
 
-export const mongoUri = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/${process.env.MONGO_INITDB_ROOT_DATABASE}?authSource=admin`;
+export const mongoUri = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@mongo_matchlytics:27017/${process.env.MONGO_INITDB_ROOT_DATABASE}?authSource=admin`;
 
 export const connectToDb = () => {
   createConnection({
     type: "postgres",
-    host: "db", // name of docker-composes service
+    host: "db_matchlytics", // name of docker-composes service
     port: Number(process.env.POSTGRES_PORT),
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
