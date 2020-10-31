@@ -16,8 +16,6 @@ services:
     restart: always
     env_file:
       - .env.development
-    volumes:
-      - ./mongo_db:/data/db
 
   pgadmin:
     image: dpage/pgadmin4:latest
