@@ -7,6 +7,7 @@ import * as passport from "passport";
 import * as helmet from "helmet";
 import UserRouter from "./src/routes/users.routes";
 import AuthRouter from "./src/routes/auth.routes";
+import ScrapperRouter from "./src/routes/scrapper.routes";
 import { initPassport, initGoogleOAuth } from "./src/utils/passport";
 import { connectToDb, connectToMongo } from "./src/utils/db";
 
@@ -45,6 +46,7 @@ app.use(
 // ------------------- ROUTERS ------------------
 // ---------------------------------------------
 app.use("/api/users", UserRouter);
+app.use("/api/scrapper", ScrapperRouter);
 app.use("/auth", AuthRouter);
 
 app.get("/", (_: Express.Request, res: Express.Response) => {

@@ -1,11 +1,17 @@
 import * as pt from "puppeteer";
 import * as chalk from "chalk";
 import { HESchema, SESchema, Analysis } from "../models/analysis.model";
+import * as path from "path";
 
 interface scheduledEventsLinks {
   link: string;
   fsId: string;
 }
+
+const puppeteerSetup: pt.LaunchOptions = {
+  args: ["--no-sandbox"],
+  headless: true,
+};
 
 const getMatchDate = async (page: pt.Page) => {
   try {
@@ -181,10 +187,10 @@ const analise = async (
 
     console.log("saved new analisis with id: " + analysisId);
 
-    let browser: pt.Browser = await pt.launch();
+    let browser: pt.Browser = await pt.launch(puppeteerSetup);
 
     browser.on("disconnected", async () => {
-      browser = await pt.launch();
+      browser = await pt.launch(puppeteerSetup);
       console.log(chalk.green('"Closed browser for ANALYSE"'));
     });
 
@@ -249,6 +255,9 @@ const analise = async (
       const seDate = await getMatchDate(page);
 
       console.log(
+        chalk.bgYellow.blue(`Match: ${seIndex + 1} / ${SELinks.length}`)
+      );
+      console.log(
         chalk.bgYellow.blue(`FOR: ${team1Name} - ${team2Name} || ${seDate}`)
       );
 
@@ -297,7 +306,7 @@ export const sEventsLinks = async (
 ): Promise<scheduledEventsLinks[]> => {
   try {
     const outputLinks: scheduledEventsLinks[] = [];
-    const browser: pt.Browser = await pt.launch();
+    const browser: pt.Browser = await pt.launch(puppeteerSetup);
     const page: pt.Page = await browser.newPage();
     page.setDefaultNavigationTimeout(20000);
 

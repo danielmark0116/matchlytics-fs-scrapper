@@ -12,6 +12,8 @@ To run the app you'll need:
 ###### ENV files content:
 
 ```
+FORCE_COLOR=1
+
 POSTGRES_PORT=5432
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
@@ -26,6 +28,8 @@ GOOGLE_CLIENT_ID=X
 GOOGLE_CLIENT_SECRET=X
 GOOGLE_CALLBACK_URL=https://DOMAIN.COM/auth/google/callback
 ```
+
+FORCE_COLOR is responsible for making the `chalk` library work within docker logs
 
 In `dev` the docker maps the containers `node_modules` to the ones located on YOUR local machine, thus you need to install them (if you use shell script provided, skip this step)
 
