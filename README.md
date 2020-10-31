@@ -21,6 +21,10 @@ SERVER_PORT=7000
 MODE=prod/dev
 
 JWT_SECRET=yoursecrethere...
+
+GOOGLE_CLIENT_ID=X
+GOOGLE_CLIENT_SECRET=X
+GOOGLE_CALLBACK_URL=https://DOMAIN.COM/auth/google/callback
 ```
 
 In `dev` the docker maps the containers `node_modules` to the ones located on YOUR local machine, thus you need to install them (if you use shell script provided, skip this step)
