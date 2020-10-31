@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  server:
+  matchlytics_server:
     env_file:
       - .env.development
     volumes:
@@ -11,7 +11,7 @@ services:
       - /app/dist/node_modules/puppeteer
     command: ["yarn", "dev"]
 
-  mongo:
+  mongo_matchlytics:
     image: mongo
     restart: always
     env_file:
@@ -31,4 +31,4 @@ services:
     volumes:
       - ./pgadmin:/var/lib/pgadmin
     links:
-      - "db:pgsql-server"
+      - "db_matchlytics:pgsql-server"

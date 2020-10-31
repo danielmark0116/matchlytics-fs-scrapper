@@ -22,8 +22,8 @@ services:
     volumes:
       - ./mongo_db:/data/db
 
-  server:
-    container_name: server
+  matchlytics_server:
+    container_name: matchlytics_server
     env_file:
       - .env
     build:
