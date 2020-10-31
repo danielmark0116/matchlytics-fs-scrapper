@@ -5,13 +5,14 @@ services:
     image: postgres
     container_name: db_matchlytics
     restart: always
-    hostname: "oauth_universal_links_db"
+    hostname: "db_matchlytics"
     volumes:
       - ./db/data:/var/lib/postgresql/data
     env_file:
       - .env
+    command: postgres -p ${POSTGRES_PORT}
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
 
   mongo_matchlytics:
     image: mongo
