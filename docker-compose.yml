@@ -13,6 +13,18 @@ services:
     ports:
       - "${POSTGRES_PORT}:5432"
 
+  mongo:
+    image: mongo
+    restart: always
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: fs-scrapper-mongo-admin
+    #   MONGO_INITDB_ROOT_PASSWORD: Admin!123
+    #   MONGO_INITDB_ROOT_PASSWORD: Admin!123
+    env_file:
+      - .env
+    volumes:
+      - ./mongo_db:/data/db
+
   server:
     container_name: server
     env_file:

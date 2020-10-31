@@ -1,6 +1,12 @@
 import { Entity, Column, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { IsEmail, IsNotEmpty } from "class-validator";
 
+export enum UserRoles {
+  USER = "user",
+  ADMIN = "admin",
+  SUPER_ADMIN = "super_admin",
+}
+
 @Entity()
 @Unique(["email"])
 export class User {
@@ -9,6 +15,9 @@ export class User {
 
   @Column()
   googleId: string;
+
+  @Column({ default: UserRoles.USER })
+  role: string;
 
   @Column()
   @IsNotEmpty({ message: "The name is required" })

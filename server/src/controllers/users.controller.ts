@@ -9,6 +9,8 @@ export const getUsers = async (
   try {
     const users = await getRepository(User).find();
 
+    console.log("TEST");
+
     res.json({
       users,
       success: true,

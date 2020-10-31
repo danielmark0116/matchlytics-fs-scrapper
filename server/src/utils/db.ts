@@ -1,5 +1,9 @@
 import { createConnection } from "typeorm";
 import * as path from "path";
+import * as mongoose from "mongoose";
+import * as chalk from "chalk";
+
+export const mongoUri = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/${process.env.MONGO_INITDB_ROOT_DATABASE}?authSource=admin`;
 
 export const connectToDb = () => {
   createConnection({
@@ -17,11 +21,30 @@ export const connectToDb = () => {
     subscribers: [path.join(__dirname, "../subscriber", "**", "*.{ts,js}")],
   })
     .then((conn) => {
-      console.log("Connected with DB");
-      console.log("Is connected: ", conn.isConnected);
+      console.log(chalk.bgGreenBright("Connected with Postgres DB"));
+      console.log("Is connected to Postgres: ", conn.isConnected);
     })
     .catch((reason) => {
       console.log("Error while connecting with db");
       console.log(reason);
     });
+};
+
+mongoose.connection.on("connecting", () =>
+  console.log(chalk.green("Connecting to the mongo db........"))
+);
+mongoose.connection.on("connected", () =>
+  console.log(chalk.bgGreen("connected to the mongo db"))
+);
+
+export const connectToMongo = async () => {
+  try {
+    await mongoose.connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  } catch (e) {
+    console.log(chalk.bgRed("Error while connecting to the db"));
+    console.log(chalk.red(e.message));
+  }
 };

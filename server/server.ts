@@ -8,7 +8,7 @@ import * as helmet from "helmet";
 import UserRouter from "./src/routes/users.routes";
 import AuthRouter from "./src/routes/auth.routes";
 import { initPassport, initGoogleOAuth } from "./src/utils/passport";
-import { connectToDb } from "./src/utils/db";
+import { connectToDb, connectToMongo } from "./src/utils/db";
 
 const app = Express();
 const port = process.env.SERVER_PORT;
@@ -18,6 +18,7 @@ if (process.env.MODE === "dev") {
 }
 
 connectToDb();
+connectToMongo();
 
 app.use(cors());
 app.use(helmet());
