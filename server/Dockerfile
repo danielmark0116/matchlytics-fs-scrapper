@@ -6,21 +6,8 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends apt-utils
 # RUN apt-get install -y --no-install-recommends postgresql postgresql-contrib
 
-# RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-# RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
-
-# RUN apt-get update \
-#  && apt-get install libnss3.so
-
-# RUN apt-get install -y libnss3.tools
-# RUN apt-get install -y libatk-bridge2.0-0
-# RUN apt-get install -y libx11-xcb-dev
-
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
-# RUN apt-get install -f
-
-
 
 COPY package.json ./
 
