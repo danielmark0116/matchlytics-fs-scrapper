@@ -1,8 +1,8 @@
-# OAUTH with Google, NodeJS, React Native and Universal Links/App Links
+# ⚽️ MATCHLYTICS ⚽️ - NodeJS + TS back end
 
-## Backend app
+## Backend app 💻
 
-### Instructions
+### Instructions 👨🏽‍🏫
 
 To run the app you'll need:
 
@@ -47,4 +47,4 @@ To run PRODUCTION mode:
 
 ### Useful docker commands:
 
-https://github.com/danielmark0116/docker-commands -> we can move it to TWG also 😃
+https://github.com/danielmark0116/docker-commands
