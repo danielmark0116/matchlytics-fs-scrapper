@@ -5,9 +5,10 @@ export const handleOAuthRedirect = (
   req: Express.Request,
   res: Express.Response
 ) => {
+  const { OAUTH_REDIRECT } = process.env;
   const token = generateJWTToken(req?.user?.id ?? "");
 
-  res.redirect("/auth/oauth_redirect?token=" + token);
+  res.redirect(OAUTH_REDIRECT + "?token=" + token);
 };
 
 export const oauthRedirect = (req: Express.Request, res: Express.Response) => {
