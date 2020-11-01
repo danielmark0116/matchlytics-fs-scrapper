@@ -7,7 +7,9 @@ services:
     volumes:
       - ./server:/app
       - ./server/node_modules:/app/node_modules
+      - /app/node_modules/bcrypt
       - /app/node_modules/puppeteer
+      - /app/dist/node_modules/bcrypt
       - /app/dist/node_modules/puppeteer
     command: ["yarn", "dev"]
 

@@ -11,11 +11,13 @@ RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 
 COPY package.json ./
 
-RUN yarn
-
 COPY . .
 
+RUN yarn
+
 RUN yarn build
+
+RUN cd dist && yarn
 
 EXPOSE 7009
 
