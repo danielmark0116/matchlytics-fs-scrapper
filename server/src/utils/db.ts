@@ -1,7 +1,8 @@
 import { createConnection } from "typeorm";
 import * as path from "path";
 import * as mongoose from "mongoose";
-import * as chalk from "chalk";
+import { seedSuperAdmin } from "../seeds/super-admin";
+import { logger } from "./logger";
 
 export const mongoUri = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@mongo_matchlytics:27017/${process.env.MONGO_INITDB_ROOT_DATABASE}?authSource=admin`;
 
@@ -21,20 +22,22 @@ export const connectToDb = () => {
     subscribers: [path.join(__dirname, "../subscriber", "**", "*.{ts,js}")],
   })
     .then((conn) => {
-      console.log(chalk.bgGreenBright("Connected with Postgres DB"));
-      console.log("Is connected to Postgres: ", conn.isConnected);
+      logger("Connected with Postgres DB", "success");
+      logger("Is connected to Postgres DB: " + conn.isConnected, "success");
+
+      seedSuperAdmin();
     })
     .catch((reason) => {
-      console.log("Error while connecting with db");
-      console.log(reason);
+      logger("Error while connecting with Postgres DB", "error");
+      logger(reason, "error");
     });
 };
 
 mongoose.connection.on("connecting", () =>
-  console.log(chalk.green("Connecting to the mongo db........"))
+  logger("Connecting to the MongoDB........", "info")
 );
 mongoose.connection.on("connected", () =>
-  console.log(chalk.bgGreen("connected to the mongo db"))
+  logger("Connected to the MongoDB", "success")
 );
 
 export const connectToMongo = async () => {
@@ -44,7 +47,7 @@ export const connectToMongo = async () => {
       useUnifiedTopology: true,
     });
   } catch (e) {
-    console.log(chalk.bgRed("Error while connecting to the db"));
-    console.log(chalk.red(e.message));
+    logger("Error while connecting with Mongo DB", "error");
+    logger(e, "error");
   }
 };
