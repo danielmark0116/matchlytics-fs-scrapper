@@ -1,6 +1,7 @@
 import * as Express from "express";
 import * as passport from "passport";
 import * as AuthController from "../controllers/auth.controller";
+import { superAdminMiddleware } from "../middlewares/super-admin.middleware";
 
 const router = Express.Router();
 
@@ -30,6 +31,7 @@ router.get("/login", (_req, res: Express.Response) => {
 router.get(
   "/protected",
   passport.authenticate("jwt", { session: false }),
+  superAdminMiddleware,
   (req: Express.Request, res: Express.Response) => {
     console.log(req?.user ?? "no user data");
     res.send("Protected route, have access");
