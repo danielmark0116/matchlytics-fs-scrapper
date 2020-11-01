@@ -8,7 +8,10 @@ export const adminMiddleware = (
 ) => {
   const { user } = req;
 
-  if (user.role === UserRoles.ADMIN) {
+  const isAdmin = user.role === UserRoles.ADMIN;
+  const isSuperAdmin = user.role === UserRoles.SUPER_ADMIN;
+
+  if (isAdmin || isSuperAdmin) {
     next();
   }
 
