@@ -2,6 +2,26 @@ import * as Express from "express";
 import { getRepository } from "typeorm";
 import { User } from "../entity/user.entity";
 
+export const getUser = async (req: Express.Request, res: Express.Response) => {
+  if (!req.user) {
+    throw new Error("No user");
+  }
+
+  try {
+    res.json({
+      success: true,
+      error: false,
+      user: req.user,
+    });
+  } catch (e) {
+    res.status(500).json({
+      error: true,
+      success: false,
+      msg: "Could not get current user",
+    });
+  }
+};
+
 export const getUsers = async (
   _req: Express.Request,
   res: Express.Response
