@@ -31,7 +31,7 @@ export const getLatestAnalysis = async (
   _req: Express.Request,
   res: Express.Response
 ) => {
-  logger("Getting analytics", "info");
+  // logger("Getting analytics", "info");
 
   try {
     const latestAnalytics = await Analysis.find()

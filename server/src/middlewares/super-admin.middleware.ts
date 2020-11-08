@@ -10,7 +10,7 @@ export const superAdminMiddleware = (
 
   if (user.role === UserRoles.SUPER_ADMIN) {
     next();
+  } else {
+    res.status(401).send("Unauthorized");
   }
-
-  res.status(401).send("Unauthorized");
 };

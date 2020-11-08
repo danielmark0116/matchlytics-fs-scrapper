@@ -13,7 +13,7 @@ export const adminMiddleware = (
 
   if (isAdmin || isSuperAdmin) {
     next();
+  } else {
+    res.status(401).send("Unauthorized");
   }
-
-  res.status(401).send("Unauthorized");
 };
