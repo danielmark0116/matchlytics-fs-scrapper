@@ -1,6 +1,6 @@
 import * as Express from "express";
 import { getRepository } from "typeorm";
-import { User } from "../entity/user.entity";
+import { User, UserRoles } from "../entity/user.entity";
 
 export const getUser = async (req: Express.Request, res: Express.Response) => {
   if (!req.user) {
@@ -29,8 +29,6 @@ export const getUsers = async (
   try {
     const users = await getRepository(User).find();
 
-    console.log("TEST");
-
     res.json({
       users,
       success: true,
@@ -47,26 +45,37 @@ export const getUsers = async (
   }
 };
 
-export const createUser = async (
-  _req: Express.Request,
+export const changeRole = async (
+  req: Express.Request,
   res: Express.Response
 ) => {
   try {
-    const newUser = getRepository(User).create({
-      email: "mail2@mail.com",
-      name: "JHohn DOe",
-      password_hash: "sdiof",
-    });
+    const { role: newRole, user_id } = req.params;
 
-    const output = await getRepository(User).save(newUser);
+    if (
+      !Object.values(UserRoles).includes(newRole.toLowerCase() as UserRoles)
+    ) {
+      throw new Error("No such role available");
+    }
 
-    res.status(201).json({
-      user: output,
+    if (newRole === UserRoles.SUPER_ADMIN) {
+      throw new Error("Could not grant super_admin role to anyone");
+    }
+
+    await getRepository(User).update(user_id ?? "", { role: newRole });
+
+    const user = await getRepository(User).findOne(user_id ?? "");
+
+    console.log({ user });
+
+    res.status(200).json({
+      user,
       success: true,
       error: false,
-      msg: "Created new user",
+      msg: "Updated user",
     });
   } catch (e) {
+    console.log(e);
     res.status(400).json({
       msg: "Create user error",
       error: true,
