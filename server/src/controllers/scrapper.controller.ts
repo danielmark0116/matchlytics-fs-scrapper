@@ -2,12 +2,16 @@ import * as Express from "express";
 import { initializeAnalysis } from "../services/scrapper";
 import { Analysis } from "../models/analysis.model";
 import { logger } from "../utils/logger";
+import * as shell from "shelljs";
 
 export const startScraping = async (
   _req: Express.Request,
   res: Express.Response
 ) => {
   try {
+    shell.exec("pkill chrome");
+    shell.exec("pkill chromium");
+
     logger("Initializing the analysis", "info");
 
     initializeAnalysis(400, 20);
