@@ -9,8 +9,7 @@ export const startScraping = async (
   res: Express.Response
 ) => {
   try {
-    shell.exec("pkill chrome");
-    shell.exec("pkill chromium");
+    shell.exec("pkill -o chromium");
 
     logger("Initializing the analysis", "info");
 

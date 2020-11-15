@@ -1,7 +1,6 @@
 import * as pt from "puppeteer";
 import * as chalk from "chalk";
 import { HESchema, SESchema, Analysis } from "../models/analysis.model";
-import * as shell from "shelljs";
 
 interface scheduledEventsLinks {
   link: string;
@@ -297,9 +296,6 @@ const analise = async (
     console.log("but going on, just skipping this one");
     // return false;
     return true;
-  } finally {
-    shell.exec("pkill chrome");
-    shell.exec("pkill chromium");
   }
 };
 
@@ -373,8 +369,5 @@ export const sEventsLinks = async (
   } catch (e) {
     console.log(chalk.red("Error while fetching links for SCHEDULED EVENTS"));
     return [];
-  } finally {
-    shell.exec("pkill chrome");
-    shell.exec("pkill chromium");
   }
 };
