@@ -107,15 +107,6 @@ const fetchHistoryData = async (
         timeout: 30000,
       });
 
-      const hasDetails = await page.evaluate(() => {
-        return !!document.querySelector(".detailsMS");
-      });
-
-      if (!hasDetails) {
-        console.log("Breaking from this loop iteration, no detailsMS");
-        continue;
-      }
-
       const events = await page.$$eval(".detailMS__incidentRow", (all: any) =>
         all.map((event: any) => {
           if (event.getAttribute("class").includes("--empty")) {
