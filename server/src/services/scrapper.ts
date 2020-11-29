@@ -90,20 +90,31 @@ const fetchHistoryData = async (
 
       const page = await browser.newPage();
 
-      page.setDefaultTimeout(0);
+      page.setDefaultTimeout(30000);
 
       console.log("mathc id: " + matchId);
 
       await page
         .goto("https://flashscore.com/match/" + matchId + "#match-summary")
         .then(() => console.log("went to match summary page"))
-        .catch((e) => console.log("Could not visit match summary page + ", e));
+        .catch((e) => {
+          console.log("Could not visit match summary page + ", e);
+        });
 
       await page.waitForSelector("#a-match-head-2-head");
       await page.waitForSelector(".detailMS", {
         visible: true,
-        timeout: 0,
+        timeout: 30000,
       });
+
+      const hasDetails = await page.evaluate(() => {
+        return !!document.querySelector(".detailsMS");
+      });
+
+      if (!hasDetails) {
+        console.log("Breaking from this loop iteration, no detailsMS");
+        continue;
+      }
 
       const events = await page.$$eval(".detailMS__incidentRow", (all: any) =>
         all.map((event: any) => {
