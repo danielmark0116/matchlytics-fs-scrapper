@@ -13,7 +13,7 @@ export const startScraping = async (
 
     logger("Initializing the analysis", "info");
 
-    initializeAnalysis(400, 20);
+    initializeAnalysis(1000, 20);
 
     res.json({
       success: true,
