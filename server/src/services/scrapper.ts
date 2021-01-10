@@ -90,6 +90,8 @@ const fetchHistoryData = async (
 
       const page = await browser.newPage();
 
+      await setTimezonePage(page);
+
       page.setDefaultTimeout(30000);
 
       console.log("mathc id: " + matchId);
@@ -202,6 +204,9 @@ const analise = async (
       const scheduledEventId = SELinks[seIndex].fsId;
 
       const page = await browser.newPage();
+
+      await setTimezonePage(page);
+
       page.setDefaultTimeout(0);
 
       await page.goto(scheduledEventLink);
@@ -309,6 +314,9 @@ export const sEventsLinks = async (
     const outputLinks: scheduledEventsLinks[] = [];
     const browser: pt.Browser = await pt.launch(puppeteerSetup);
     const page: pt.Page = await browser.newPage();
+
+    await setTimezonePage(page);
+
     page.setDefaultNavigationTimeout(20000);
 
     browser.on("targetdestroyed", async (pt: pt.Target) => {
@@ -372,4 +380,13 @@ export const sEventsLinks = async (
     console.log(chalk.red("Error while fetching links for SCHEDULED EVENTS"));
     return [];
   }
+};
+
+const setTimezonePage = async (page: pt.Page) => {
+  const headlessUserAgent = await page.evaluate(() => navigator.userAgent);
+  const chromeUserAgent = headlessUserAgent.replace("HeadlessChrome", "Chrome");
+  await page.setUserAgent(chromeUserAgent);
+  await page.setExtraHTTPHeaders({
+    "accept-language": "pl-PL,en;q=0.8",
+  });
 };
