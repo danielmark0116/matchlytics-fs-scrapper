@@ -389,4 +389,6 @@ const setTimezonePage = async (page: pt.Page) => {
   await page.setExtraHTTPHeaders({
     "accept-language": "pl-PL,en;q=0.8",
   });
+
+  await page.emulateTimezone("PL");
 };
