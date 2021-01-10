@@ -390,5 +390,5 @@ const setTimezonePage = async (page: pt.Page) => {
     "accept-language": "pl-PL,en;q=0.8",
   });
 
-  await page.emulateTimezone("PL");
+  await page.emulateTimezone("Europe/Warsaw");
 };
