@@ -317,7 +317,7 @@ export const sEventsLinks = async (
 
     await setTimezonePage(page);
 
-    page.setDefaultNavigationTimeout(20000);
+    page.setDefaultNavigationTimeout(80000);
 
     browser.on("targetdestroyed", async (pt: pt.Target) => {
       const pagesCount = (await browser.pages()).length;
