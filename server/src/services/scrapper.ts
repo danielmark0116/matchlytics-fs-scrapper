@@ -378,6 +378,7 @@ export const sEventsLinks = async (
     }
   } catch (e) {
     console.log(chalk.red("Error while fetching links for SCHEDULED EVENTS"));
+    console.log(e);
     return [];
   }
 };
